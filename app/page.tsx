@@ -9,9 +9,7 @@ export default function Page() {
 
       <p className="mb-4">
         I’m a frontend-leaning full-stack developer who enjoys building highly
-        interactive UIs and smooth animations. My core strengths lie in
-        TypeScript and React, and recently I’ve been exploring React Native and
-        advanced SVG animations.
+        interactive UIs and smooth animations.
       </p>
 
       <p className="mb-4">
