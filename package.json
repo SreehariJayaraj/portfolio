@@ -7,6 +7,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@base-ui/react": "^1.8.0",
     "@tailwindcss/postcss": "4.3.3",
     "@types/node": "20.11.17",
     "@vercel/analytics": "^1.1.3",
@@ -18,6 +19,7 @@
     "postcss": "^8.4.35",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "react-masonry-css": "^1.0.16",
     "sugar-high": "^0.6.0",
     "tailwindcss": "4.3.3",
     "typescript": "^5"

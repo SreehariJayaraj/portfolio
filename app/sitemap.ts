@@ -1,19 +1,17 @@
-import { getBlogPosts } from 'app/blog/utils'
-
-// TODO: set NEXT_PUBLIC_SITE_URL (or change the fallback) to your real domain.
+import { getBlogPosts } from "app/blog/utils";
 export const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://sreeharijayaraj.com'
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.sreeharij.dev";
 
 export default async function sitemap() {
   const blogs = getBlogPosts().map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.metadata.publishedAt,
-  }))
+  }));
 
-  const routes = ['', '/blog'].map((route) => ({
+  const routes = ["", "/blog", "/life"].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString().split('T')[0],
-  }))
+    lastModified: new Date().toISOString().split("T")[0],
+  }));
 
-  return [...routes, ...blogs]
+  return [...routes, ...blogs];
 }

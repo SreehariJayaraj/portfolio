@@ -7,6 +7,7 @@ import { motion } from 'motion/react'
 const navItems = {
   '/': { name: 'home' },
   '/blog': { name: 'blog' },
+  '/life': { name: 'life' },
   'https://dub.sh/sreehari-resume': { name: 'resume' },
 }
 
