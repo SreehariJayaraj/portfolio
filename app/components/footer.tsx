@@ -5,6 +5,8 @@ function ArrowIcon() {
       height="12"
       viewBox="0 0 12 12"
       fill="none"
+      aria-hidden="true"
+      className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -15,46 +17,35 @@ function ArrowIcon() {
   )
 }
 
+const links = [
+  { label: 'linkedin', href: 'https://www.linkedin.com/in/sreeharijayaraj/' },
+  { label: 'github', href: 'https://github.com/SreehariJayaraj' },
+  {
+    label: 'view source',
+    href: 'https://github.com/SreehariJayaraj/portfolio',
+  },
+]
+
 export default function Footer() {
   return (
-    <footer className="mb-16">
-      <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://www.linkedin.com/in/sreeharijayaraj/"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">linkedIn</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://github.com/SreehariJayaraj"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">github</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://github.com/SreehariJayaraj/portfolio"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">view source</p>
-          </a>
-        </li>
+    <footer className="mt-24 mb-16 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+      <ul className="flex flex-col gap-2 text-sm text-neutral-500 sm:flex-row sm:gap-6 dark:text-neutral-500">
+        {links.map(({ label, href }) => (
+          <li key={href}>
+            <a
+              className="group flex items-center gap-2 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100"
+              rel="noopener noreferrer"
+              target="_blank"
+              href={href}
+            >
+              <ArrowIcon />
+              {label}
+            </a>
+          </li>
+        ))}
       </ul>
-      <p className="mt-8 text-neutral-600 dark:text-neutral-300">
-        © {new Date().getFullYear()} MIT Licensed
+      <p className="mt-8 text-sm text-neutral-400 dark:text-neutral-600">
+        © {new Date().getFullYear()} Sreehari Jayaraj
       </p>
     </footer>
   )

@@ -9,15 +9,20 @@ type Metadata = {
 }
 
 function parseFrontmatter(fileContent: string) {
-  let frontmatterRegex = /---\s*([\s\S]*?)\s*---/
-  let match = frontmatterRegex.exec(fileContent)
-  let frontMatterBlock = match![1]
-  let content = fileContent.replace(frontmatterRegex, '').trim()
-  let frontMatterLines = frontMatterBlock.trim().split('\n')
-  let metadata: Partial<Metadata> = {}
+  const frontmatterRegex = /---\s*([\s\S]*?)\s*---/
+  const match = frontmatterRegex.exec(fileContent)
+
+  if (!match) {
+    throw new Error('Missing frontmatter block (--- ... ---) in MDX file.')
+  }
+
+  const frontMatterBlock = match[1]
+  const content = fileContent.replace(frontmatterRegex, '').trim()
+  const frontMatterLines = frontMatterBlock.trim().split('\n')
+  const metadata: Partial<Metadata> = {}
 
   frontMatterLines.forEach((line) => {
-    let [key, ...valueArr] = line.split(': ')
+    const [key, ...valueArr] = line.split(': ')
     let value = valueArr.join(': ').trim()
     value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
     metadata[key.trim() as keyof Metadata] = value
@@ -26,20 +31,20 @@ function parseFrontmatter(fileContent: string) {
   return { metadata: metadata as Metadata, content }
 }
 
-function getMDXFiles(dir) {
+function getMDXFiles(dir: string) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx')
 }
 
-function readMDXFile(filePath) {
-  let rawContent = fs.readFileSync(filePath, 'utf-8')
+function readMDXFile(filePath: string) {
+  const rawContent = fs.readFileSync(filePath, 'utf-8')
   return parseFrontmatter(rawContent)
 }
 
-function getMDXData(dir) {
-  let mdxFiles = getMDXFiles(dir)
+function getMDXData(dir: string) {
+  const mdxFiles = getMDXFiles(dir)
   return mdxFiles.map((file) => {
-    let { metadata, content } = readMDXFile(path.join(dir, file))
-    let slug = path.basename(file, path.extname(file))
+    const { metadata, content } = readMDXFile(path.join(dir, file))
+    const slug = path.basename(file, path.extname(file))
 
     return {
       metadata,
@@ -51,6 +56,11 @@ function getMDXData(dir) {
 
 export function getBlogPosts() {
   return getMDXData(path.join(process.cwd(), 'app', 'blog', 'posts'))
+}
+
+export function readingTime(content: string) {
+  const words = content.trim().split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.round(words / 200))
 }
 
 export function formatDate(date: string, includeRelative = false) {
